@@ -15,22 +15,23 @@ const BigScreenSwiper = ({ fetchedData }) => {
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
 
-  console.log(fetchedData);
+  // console.log(fetchedData);
   return (
     <>
       <Swiper
-        spaceBetween={0}
+        spaceBetween={6}
         centeredSlides={true}
         loop={true}
         
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
         
         pagination={{
           clickable: true,
         }}
+
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
@@ -38,8 +39,8 @@ const BigScreenSwiper = ({ fetchedData }) => {
       >
         {fetchedData &&
           fetchedData.map((value, key) => (
-            <SwiperSlide className=" bg-inherit">
-              <BigScreenMediaCard value={value} key={key} />
+            <SwiperSlide className=" bg-inherit" key={key} >
+              <BigScreenMediaCard value={value} />
             </SwiperSlide>
           ))}
 

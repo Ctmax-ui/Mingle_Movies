@@ -1,0 +1,43 @@
+
+
+.paragraph-scrole{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+@media (max-width: 1024px) {
+    .swiper {
+        max-width: 100% !important;
+    }
+    .main-slide-container{
+    }
+    .slide-box{
+        width: 90% !important;
+    }
+    .slide-box h3{
+        font-size: 1em;
+        margin-top: 40px;
+    }
+    .paragraph-scrole{
+        height: 100px !important;
+    }
+
+}
+
+@media (max-width: 768px) {
+   
+}
+
+@media (max-width: 640px) {
+    .slide-box h3{
+        font-size: 1em;
+        margin-top: 0;
+        text-align: left;
+    }
+}
+
+@media (max-width: 440px) {
+    
+}
+

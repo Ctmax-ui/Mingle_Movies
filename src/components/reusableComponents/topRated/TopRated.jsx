@@ -2,13 +2,11 @@ import MovieCard from "../../reusableComponents/movieCard/MovieCard";
 
 const TopRated = ({fetchedData, maximumResult, mediaType}) => {
 
-  if (fetchedData == null) {
-    return <h1>loading</h1>;
-  }
+
 
   return (
     <>
-      <div className="md:w-[45%]">
+      <div className="w-[100%] md:w-[58%]">
         <div className="w-full relative block font-bold text-center text-3xl mb-4 cursor-default">
           <span className="border-b-[3px] px-3 pb-1 hover:border-blue-600 border-transparent transition duration-150 ease-in-out">
             Top Rated {mediaType}
@@ -17,7 +15,7 @@ const TopRated = ({fetchedData, maximumResult, mediaType}) => {
         <div className="text-gray-600 body-font">
           <div className="container px-0 mx-auto">
             <div className="flex flex-wrap ">
-              {fetchedData.results &&
+              {fetchedData?.results &&
                 fetchedData.results.slice(0, maximumResult || 12).map((result) => (
                   <div
                     key={result.id}

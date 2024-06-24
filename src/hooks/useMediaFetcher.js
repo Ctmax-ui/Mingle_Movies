@@ -8,9 +8,9 @@ const useMediaFetcher = (url, dependec) => {
 
 
     useEffect(() => {
-        async function fetchData() {
+        const fetchData = async()=> {
+            setIsLoading(true)
             try {
-                setIsLoading(true)
                 const result = await (await fetch(url, {
                     method: 'GET',
                     headers: {
@@ -18,14 +18,16 @@ const useMediaFetcher = (url, dependec) => {
                         Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
                     }
                 })).json();
-                SetFetchedData(result);
+               SetFetchedData(result);
             } catch (err) {
                 setErr(err);
+            }
+            finally{
+                setIsLoading(false)
             }
         }
 
         fetchData()
-        setIsLoading(false)
     }, [url, dependec])
 
 

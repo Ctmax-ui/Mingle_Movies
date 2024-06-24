@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useGetGenre from "../../../hooks/useGetGenre";
-import './MovieCard.css'
+import "./MovieCard.css";
+import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 
 const genreMap = useGetGenre();
 
@@ -17,12 +18,11 @@ const generateUrl = (title, id) => {
 };
 
 const MovieCard = ({ result }) => {
+  //  console.log(result);
+
   return (
     <>
-      <div
-        
-        className="flex relative md:h-[300px] h-[250px]"
-      >
+      <div className="flex relative md:h-[300px] h-[250px]">
         {result.media_type ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
             Type : {result.media_type.toUpperCase()}
@@ -37,10 +37,7 @@ const MovieCard = ({ result }) => {
         </p>
 
         <Link
-          to={generateUrl(
-            result.title || result.name || result.original_name,
-            result.id
-          )}
+          to={`${result && result.id}`}
           className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-10 w-full text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500"
         >
           {result.title || result.name}
@@ -49,23 +46,22 @@ const MovieCard = ({ result }) => {
         <p className="absolute bottom-12 right-0 me-1 z-10 sm:text-[12px] text-[.7em] bg-black text-white bg-opacity-30 p-1 px-2 rounded-md font-bold">
           Relesed on: {result.release_date || result.first_air_date}
         </p>
-
-        <img
-          alt="gallery"
-          className="absolute inset-0 w-full h-full object-cover object-center rounded-md"
-          src={`https://image.tmdb.org/t/p/w500${result.backdrop_path || result.poster_path}`}
+        <ImageWithLoading
+          src={`https://image.tmdb.org/t/p/w500${
+            result.backdrop_path || result.poster_path
+          }`}
+          className="inset-1 h-full w-full object-center object-cover rounded-md "
+          styleLoading={" w-[100%]"}
         />
 
-        <div className="px-2 py-10 relative z-10 w-full border-x-4 border-t-4 border-slate-600 bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[85.5%]">
-          
+        <div className="px-2 py-10 z-10 w-full border-x-4 border-t-4 border-slate-600 bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[85.5%] absolute">
           <h2 className="tracking-widest text-sm title-font font-medium text-slate-300 mb-1">
             {result.adult ? "18+" : "Family friendly"}
           </h2>
           <Link
-          to={generateUrl(
-            result.title || result.name || result.original_name,
-            result.id
-          )} className="title-font text-lg font-medium hover:text-blue-800 mb-3 text-blue-500">
+            to={`${result && result.id}`}
+            className="title-font text-lg font-medium hover:text-blue-800 mb-3 text-blue-500"
+          >
             {result.title || result.original_name}
           </Link>
           <p className="leading-relaxed overflow-hidden h-[50%] text-white">
