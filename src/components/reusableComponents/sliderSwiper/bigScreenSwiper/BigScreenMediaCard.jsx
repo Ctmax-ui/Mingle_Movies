@@ -19,7 +19,7 @@ const BigScreenMediaCard = ({ value }) => {
                 value && value.backdrop_path
               }`}
               className="h-full object-cover rounded-md"
-              styleLoading={" w-[400px]"}
+              styleLoading={" w-[400px] h-full"}
             />
           </div>
 

@@ -4,7 +4,7 @@ import './Header.css'
 const Header = () => {
   return (<>
   <>
-      <header className="text-gray-600 h-auto body-font w-full z-20 bg-slate-100">
+      <header className="text-gray-600 h-auto body-font w-full z-20 bg-slate-100" id="header">
         <div className="container max-w-[1140px] mx-auto flex flex-wrap px-3 flex-col md:flex-row items-center ">
           <div className="m-4 p-1 h-full">
             <Link

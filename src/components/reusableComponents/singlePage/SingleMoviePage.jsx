@@ -2,19 +2,24 @@ import React, { useEffect } from "react";
 import useMediaFetcher from "../../../hooks/useMediaFetcher";
 import { Link, useParams } from "react-router-dom";
 import useGetGenre from "../../../hooks/useGetGenre";
+import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
+import MovieTrailer from "../mediaTrailers/MovieTrailer";
+import MediaCardSlider from "../slider/MediaCardSlider";
+
 
 const SingleMoviePage = () => {
   const { movieId } = useParams();
 
   const genreMap = useGetGenre();
 
-  const { fetchedData: showRightData, isLoading: loading } = useMediaFetcher(
+  const { fetchedData: showRightData, isLoading: loading, SetFetchedData } = useMediaFetcher(
     `${import.meta.env.VITE_URL}movie/${movieId}?language=en-US&page=1`
   );
-
-  if (showRightData === null) {
+  
+  if (!showRightData) {
+    // SetFetchedData('')
     return (
-      <div className=" absolute text-5xl top-1/2 left-1/2 -translate-x-1/2">
+      <div className=" h-[90vh] w-100 flex justify-center items-center text-5xl">
         Loading....
       </div>
     );
@@ -24,115 +29,166 @@ const SingleMoviePage = () => {
 
   return (
     <>
-      <section className="text-gray-600 body-font my-[5rem]">
-        <div className="container mx-auto flex px-5 py-4 md:flex-row flex-col gap-5 items-center my-5 h-auto">
-          <div
-            className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0"
-            id="main-sec"
-          >
-            <img
-              className="object-cover object-center rounded h-[500px]"
-              alt={showRightData && (showRightData.title || showRightData.name)}
-              src={`${import.meta.env.VITE_IMAGE_URL}${
-                showRightData && showRightData.poster_path
-              }`}
-            />
+      <section className="text-gray-600 body-font mb-10">
+        <div className="px-32 h-[445px]" id="main-single-content">
+          <div className="container mx-auto flex px-5 py-5 md:flex-row flex-col gap-5 items-center my-5 h-auto border border-black rounded-md">
+            <div
+              className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 flex justify-center h-full"
+              id="main-sec"
+            >
+              <ImageWithLoading
+                className="object-cover object-center rounded h-[400px]"
+                styleLoading={" w-[100%] h-[400px]"}
+                src={`${import.meta.env.VITE_IMAGE_URL}${
+                  showRightData && showRightData.poster_path
+                }`}
+              />
+            </div>
+
+            <div className=" md:w-1/2 flex flex-col md:text-left items-center text-center h-auto pt-3 relative gap-3">
+              <p className="">
+                Original Name:{" "}
+                {showRightData &&
+                  (showRightData.original_name || showRightData.original_title)}
+              </p>
+              <h1 className="title-font sm:text-3xl text-3xl font-bold text-gray-900">
+                "{showRightData && (showRightData.title || showRightData.name)}"
+              </h1>
+              <p className="leading-relaxed mb-4">
+                {showRightData && showRightData.tagline}
+              </p>
+
+              <div className="flex w-full gap-3 flex-wrap">
+                <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                  Original Language :{" "}
+                  {showRightData &&
+                    showRightData?.original_language.toUpperCase()}
+                </p>
+
+                <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                  Release Date :{" "}
+                  {showRightData && showRightData.release_date.toUpperCase()}
+                </p>
+
+                {showRightData?.media_type && (
+                  <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                    Media Type : {showRightData.media_type.toUpperCase()}
+                  </p>
+                )}
+
+                <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                  Type :{" "}
+                  {showRightData &&
+                    (showRightData.adult ? "Adult" : "Family Friendly")}
+                </p>
+                <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                  Type : {showRightData && showRightData.status}
+                </p>
+              </div>
+
+              <div className="flex gap-1 flex-wrap w-full">
+                <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
+                  Vote Average :{" "}
+                  {showRightData && showRightData.vote_average.toFixed(1)}/10
+                </p>
+                <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
+                  Popularity : {showRightData && showRightData.popularity}
+                </p>
+                <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
+                  Vote Count : {showRightData && showRightData.vote_count}
+                </p>
+              </div>
+
+              <div className="flex justify-start w-full">
+                <span className=" font-bold text-black text-xl me-2">
+                  Tags :{" "}
+                </span>
+                <div className="flex gap-1 flex-wrap">
+                  {showRightData?.genres &&
+                    showRightData?.genres.map((genreId, key) => (
+                      <Link
+                        key={key}
+                        className="text-[1em] bg-slate-800 py-1 px-2 text-white font-bold rounded font-mono hover:bg-slate-600 border  hover:border-black"
+                      >
+                        {genreId.name}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+
+              <div className="flex w-full justify-between mt-2">
+                <Link
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  to={`https://www.imdb.com/title/${showRightData?.imdb_id}`}
+                >
+                  Goto IMDB page{" "}
+                  <svg
+                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div className=" md:w-1/2 flex flex-col md:text-left items-center text-center h-auto pt-3 relative gap-3">
-            <p className="">
-              Original Name:{" "}
-              {showRightData &&
-                (showRightData.original_name || showRightData.original_title)}
-            </p>
-            <h1 className="title-font sm:text-3xl text-3xl font-bold text-gray-900">
-              "{showRightData && (showRightData.title || showRightData.name)}"
-            </h1>
-            <p className="leading-relaxed">
-              {showRightData && showRightData.overview}
-            </p>
-
-            <div className="flex w-full gap-3 flex-wrap">
-              <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                Original Language :{" "}
-                {showRightData &&
-                  showRightData?.original_language.toUpperCase()}
-              </p>
-              <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                {/* Release Date :{" "} */}
-                {/* {showRightData && (showRightData.release_date.toUpperCase())} */}
-                {showRightData &&
-                  (showRightData.release_date == undefined
-                    ? "First Air Date : " + showRightData.first_air_date
-                    : "Release On : " + showRightData.release_date)}
-              </p>
-              <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                Media Type :{" "}
-                {showRightData?.media_type &&
-                  showRightData.media_type.toUpperCase()}
-              </p>
-              <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                Type :{" "}
-                {showRightData &&
-                  (showRightData.adult ? "Adult" : "Family Friendly")}
-              </p>
-              <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                Type : {showRightData && showRightData.status}
-              </p>
+        <div className="my-5 container mx-auto px-20 ">
+          <div className="border border-black rounded-md p-5">
+            <div className=" text-center">
+              <h5 className=" text-black text-4xl font-bold mb-3">Overview</h5>
+              <p>{showRightData && showRightData.overview}</p>
             </div>
 
-            <div className="flex gap-1 flex-wrap w-full">
-              <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
-                Vote Average :{" "}
-                {showRightData && showRightData.vote_average.toFixed(1)}/10
-              </p>
-              <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
-                Popularity : {showRightData && showRightData.popularity}
-              </p>
-              <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
-                Vote Count : {showRightData && showRightData.vote_count}
-              </p>
-            </div>
-
-            <div className="flex justify-start w-full">
-              <span className=" font-bold text-black text-xl me-2">
-                Tags :{" "}
-              </span>
-              <div className="flex gap-1 flex-wrap">
-                {showRightData?.genres &&
-                  showRightData?.genres.map((genreId, key) => (
-                    <Link
-                      key={key}
-                      className="text-[1em] bg-slate-800 py-1 px-2 text-white font-bold rounded font-mono hover:bg-slate-600 border  hover:border-black"
-                    >
-                      {genreId.name}
-                    </Link>
+            <div className=" text-center mt-10">
+              <h5 className=" text-black text-3xl font-bold mb-3">
+                Produced By
+              </h5>
+              <div className="flex justify-center gap-5 flex-wrap">
+                {showRightData &&
+                  showRightData.production_companies.map((value, key) => (
+                    <div className="border h-[100px] flex p-2 rounded-md items-center gap-3" key={key}>
+                      {value.logo_path &&
+                      <img
+                      className="w-[100px] h-[100px] object-contain p-2"
+                        src={`${import.meta.env.VITE_IMAGE_URL}${
+                          value && value.logo_path
+                        }`}
+                        alt=""
+                      />}
+                      <div className="">
+                        <p className=" font-semibold text-black">{value.name}</p>
+                        <p>Country : {value.origin_country}</p>
+                      </div>
+                    </div>
                   ))}
               </div>
             </div>
           </div>
         </div>
 
-        {showRightData.belongs_to_collection && (
-          <div className="w-full">
-            <h4 className="w-full text-center text-3xl font-bold text-black">
-              Images
-            </h4>
-            <div className="flex">
-              <div className="w-[50]">
-                <img src={import.meta.env.VITE_IMAGE_URL + showRightData.belongs_to_collection.poster_path
-} alt="" />
-              </div>
-              <div className="w-[50]"></div>
-            </div>
-          </div>
-        )}
-
-        {loading ? (
+        {!showRightData ? (
           ""
         ) : (
           <>
             <div className="mt-16">
+              <div className="my-20 ">
+                <MovieTrailer
+                  movieId={movieId}
+                  media_type={showRightData && showRightData.media_type}
+                />
+              </div>
+
               <h3 className="w-full text-center text-3xl text-black font-bold mb-6">
                 Similar{" "}
                 {showRightData && showRightData.media_type == "tv"
@@ -140,10 +196,9 @@ const SingleMoviePage = () => {
                   : "Movies"}
               </h3>
               <div className="flex justify-center w-full">
-                {/* <CardSlider
-                    movieId={movieId}
-                    media_type={showRightData && showRightData.media_type}
-                  /> */}
+                <MediaCardSlider
+                    url={`${import.meta.env.VITE_URL}movie/${showRightData && showRightData.id}/similar?language=en-US&page=1`}
+                  />
               </div>
 
               <h4 className="w-full text-center text-3xl text-black font-bold mt-20 mb-6">
@@ -158,13 +213,6 @@ const SingleMoviePage = () => {
                     media_type={showRightData && showRightData.media_type}
                   /> */}
               </div>
-            </div>
-
-            <div className="my-20 ">
-              {/* <SingleMedaTrailer
-                  movieId={movieId}
-                  media_type={showRightData && showRightData.media_type}
-                /> */}
             </div>
 
             <div className="mt-20">

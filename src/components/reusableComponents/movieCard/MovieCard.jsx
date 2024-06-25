@@ -23,6 +23,7 @@ const MovieCard = ({ result }) => {
   return (
     <>
       <div className="flex relative md:h-[300px] h-[250px]">
+        
         {result.media_type ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
             Type : {result.media_type.toUpperCase()}
@@ -37,7 +38,7 @@ const MovieCard = ({ result }) => {
         </p>
 
         <Link
-          to={`${result && result.id}`}
+          to={`/movies/${result && result.id}#main-single-content`}
           className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-10 w-full text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500"
         >
           {result.title || result.name}
@@ -51,7 +52,7 @@ const MovieCard = ({ result }) => {
             result.backdrop_path || result.poster_path
           }`}
           className="inset-1 h-full w-full object-center object-cover rounded-md "
-          styleLoading={" w-[100%]"}
+          styleLoading={" w-[100%] h-full"}
         />
 
         <div className="px-2 py-10 z-10 w-full border-x-4 border-t-4 border-slate-600 bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[85.5%] absolute">

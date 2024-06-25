@@ -6,8 +6,8 @@ const useMediaFetcher = (url, dependec) => {
     const [fetchedData, SetFetchedData] = useState(null)
     const [err, setErr] = useState(null)
 
-
     useEffect(() => {
+        SetFetchedData('')
         const fetchData = async()=> {
             setIsLoading(true)
             try {
