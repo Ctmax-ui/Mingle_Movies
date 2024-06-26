@@ -5,7 +5,8 @@ import Homepage from "./components/main/home/Homepage";
 import Movies from "./components/main/movies/Movies";
 import TvShow from "./components/main/tvShow/TvShow";
 import Footer from "./components/main/footer/Footer"
-import SingleMediaPage from "./components/reusableComponents/singlePage/SingleMoviePage";
+import SingleMoviePage from "./components/reusableComponents/singlePage/SingleMoviePage";
+import SingleTvShowPage from "./components/reusableComponents/singlePage/SingleTvShowPage";
 
 
 function App() {
@@ -16,9 +17,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="movies" element={<Movies />} />
-        <Route path="movies/:movieId" element={<SingleMediaPage />} />
+        <Route path="movies/:movieId" element={<SingleMoviePage />} />
         <Route path="tvshow" element={<TvShow />} />
-        <Route path="tvshow/:mediaId" element={<SingleMediaPage />} />
+        <Route path="tvshow/:tvshowId" element={<SingleTvShowPage />} />
       </Routes>
 
       <Footer />

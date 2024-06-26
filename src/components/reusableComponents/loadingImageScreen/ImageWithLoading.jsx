@@ -45,20 +45,20 @@ function ImageWithLoading({ src, className, styleLoading }) {
   const handleImageLoad = () => {
     setIsLoaded(true);
   };
-  console.log(src);
+  // console.log(src);
 
   return (
     <>
-      {/* {!isLoaded && <CustomLoadingScreen styleLoading={styleLoading} />} */}
+      {!isLoaded && <CustomLoadingScreen styleLoading={styleLoading} />}
       
-      {isLoaded && src != 'https://image.tmdb.org/t/p/w500null' ? 
+      
       <img
         src={src}
         alt="Your Image"
         className={` ${isLoaded ? 'block': 'hidden'} ${className} `}
         onLoad={handleImageLoad}
       />
-      : <CustomLoadingScreen styleLoading={styleLoading} />}
+      
     </>
   );
 }

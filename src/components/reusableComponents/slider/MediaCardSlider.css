@@ -9,5 +9,13 @@
     width: 90% !important;
 }
 .slick-arrow, .slick-prev, .slick-next{
-    display: none !important;
+    /* display: none !important; */
 }
+.slick-prev:before, .slick-next:before{
+    opacity: 100 !important;
+    color: black;
+    font-size: 30px;
+    display: block;
+    height: 100%;
+}
+.slick-prev:before{content: '\25C0';} .slick-next:before{content: '\25B6';}

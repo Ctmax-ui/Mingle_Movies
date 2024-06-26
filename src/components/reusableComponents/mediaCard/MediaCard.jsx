@@ -17,7 +17,7 @@ const generateUrl = (title, id) => {
   return `/movies/${urlFriendlyTitle}/${id}`;
 };
 
-const MovieCard = ({ result }) => {
+const MediaCard = ({ result, mediaType }) => {
   //  console.log(result);
 
   return (
@@ -38,7 +38,7 @@ const MovieCard = ({ result }) => {
         </p>
 
         <Link
-          to={`/movies/${result && result.id}#main-single-content`}
+          to={`/${mediaType}/${result && result.id}`}
           className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-10 w-full text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500"
         >
           {result.title || result.name}
@@ -49,10 +49,11 @@ const MovieCard = ({ result }) => {
         </p>
         <ImageWithLoading
           src={`https://image.tmdb.org/t/p/w500${
-            result.backdrop_path || result.poster_path
+            result.poster_path
+            || result.backdrop_path
           }`}
           className="inset-1 h-full w-full object-center object-cover rounded-md "
-          styleLoading={" w-[100%] h-full"}
+          styleLoading={" w-[100%] h-full absolute"}
         />
 
         <div className="px-2 py-10 z-10 w-full border-x-4 border-t-4 border-slate-600 bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[85.5%] absolute">
@@ -60,10 +61,10 @@ const MovieCard = ({ result }) => {
             {result.adult ? "18+" : "Family friendly"}
           </h2>
           <Link
-            to={`${result && result.id}`}
-            className="title-font text-lg font-medium hover:text-blue-800 mb-3 text-blue-500"
+            to={`/${mediaType}/${result && result.id}`}
+            className="title-font text-lg font-medium hover:text-blue-500 mb-3 text-white"
           >
-            {result.title || result.original_name}
+            {result.title || result.name}
           </Link>
           <p className="leading-relaxed overflow-hidden h-[50%] text-white">
             <span className="text-ellipsis">{result.overview}</span>
@@ -89,4 +90,4 @@ const MovieCard = ({ result }) => {
   );
 };
 
-export default MovieCard;
+export default MediaCard;

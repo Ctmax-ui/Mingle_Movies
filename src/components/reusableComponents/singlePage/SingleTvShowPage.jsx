@@ -6,10 +6,16 @@ import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 
-const SingleMoviePage = () => {
-  const { movieId } = useParams();
+const SingleTvShowPage = () => {
+  const { tvshowId } = useParams();
 
   const { pathname } = useLocation();
+
+  const episodeCounter = (array) => {
+    return array
+      .map((array) => array.episode_count)
+      .reduce((total, count) => total + count, 0);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,7 +24,7 @@ const SingleMoviePage = () => {
   const genreMap = useGetGenre();
 
   const { fetchedData: showRightData, isLoading: loading } = useMediaFetcher(
-    `${import.meta.env.VITE_URL}movie/${movieId}?language=en-US&page=1`
+    `${import.meta.env.VITE_URL}tv/${tvshowId}?language=en-US&page=1`
   );
 
   if (!showRightData) {
@@ -71,13 +77,31 @@ const SingleMoviePage = () => {
                 </p>
 
                 <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                  Release Date :{" "}
-                  {showRightData && showRightData.release_date.toUpperCase()}
+                  Release Date : {showRightData && showRightData.first_air_date}
                 </p>
+
+                {showRightData?.last_air_date && (
+                  <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                    Last Release Date : {showRightData.last_air_date}
+                  </p>
+                )}
 
                 {showRightData?.media_type && (
                   <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
                     Media Type : {showRightData.media_type.toUpperCase()}
+                  </p>
+                )}
+
+                {showRightData?.seasons && (
+                  <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                    Number Of Episodes :{" "}
+                    {episodeCounter(showRightData?.seasons)}
+                  </p>
+                )}
+
+                {showRightData?.number_of_seasons && (
+                  <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+                    Number Of Seasons : {showRightData?.seasons.length}
                   </p>
                 )}
 
@@ -87,7 +111,7 @@ const SingleMoviePage = () => {
                     (showRightData.adult ? "Adult" : "Family Friendly")}
                 </p>
                 <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                  Type : {showRightData && showRightData.status}
+                  Status : {showRightData && showRightData.status}
                 </p>
               </div>
 
@@ -146,7 +170,7 @@ const SingleMoviePage = () => {
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     to={showRightData.homepage}
                   >
-                    Goto Movie Homepage{" "}
+                    Goto Original site{" "}
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                       aria-hidden="true"
@@ -218,40 +242,40 @@ const SingleMoviePage = () => {
                 <MediaTrailer
                   trailerUrl={`${
                     import.meta.env.VITE_URL
-                  }movie/${movieId}/videos?language=en-US&page=1`}
+                  }tv/${tvshowId}/videos?language=en-US&page=1`}
                 />
               </div>
 
               <div className="">
                 <MediaCardSlider
-                  url={`${import.meta.env.VITE_URL}movie/${
-                    showRightData && showRightData.id
-                  }/similar?language=en-US&page=1`}
-                  mediaType={"movies"}
-                  title={"Similar"}
-                />
-              </div>
-
-              <div className="">
-                <MediaCardSlider
-                  url={`${import.meta.env.VITE_URL}movie/${
+                  url={`${import.meta.env.VITE_URL}tv/${
                     showRightData && showRightData.id
                   }/recommendations?language=en-US&page=1`}
-                  mediaType={"movies"}
-                  title={"Recommended"}
+                  title={"Recomanded"}
+                  mediaType={"tvshow"}
+                />
+              </div>
+
+              <div className="">
+                <MediaCardSlider
+                  url={`${import.meta.env.VITE_URL}tv/${
+                    showRightData && showRightData.id
+                  }/similar?language=en-US&page=1`}
+                  title={"Similar"}
+                  mediaType={"tvshow"}
                 />
               </div>
             </div>
 
             {/* <div className="mt-20">
-              <h4 className="w-full text-center text-3xl text-black font-bold mt-20 mb-6">
-                Reviews
-              </h4>
-              <SingleMediaReviewSec
-                  movieId={movieId}
-                  media_type={showRightData && showRightData.media_type}
-                />
-            </div> */}
+                <h4 className="w-full text-center text-3xl text-black font-bold mt-20 mb-6">
+                  Reviews
+                </h4>
+                <SingleMediaReviewSec
+                    movieId={movieId}
+                    media_type={showRightData && showRightData.media_type}
+                  />
+              </div> */}
           </>
         )}
       </section>
@@ -259,4 +283,4 @@ const SingleMoviePage = () => {
   );
 };
 
-export default SingleMoviePage;
+export default SingleTvShowPage;
