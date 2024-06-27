@@ -84,16 +84,16 @@ const MediaCardSlider = ({ url, mediaType, title }) => {
     return <h1>loading...</h1>;
   }
 
-  // console.log(fetchedData);
+  // console.log(fetchedData, mediaType);
 
-  if(fetchedData.results.length <= 0){
+  if(fetchedData.results?.length <= 0){
     return ''
   }
 
   return (
     <>
       <h4 className="w-full text-center text-3xl text-black font-bold mt-20 mb-6">
-        {title} {mediaType == "tvshow" ? "Tv-Series" : "Movies"}
+        {title} {mediaType === "tvshow" ? "Tv-Series" : "Movies"}
       </h4>
       <div className="flex justify-center w-full">
         <Slider {...settings}>

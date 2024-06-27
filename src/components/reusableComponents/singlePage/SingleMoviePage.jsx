@@ -41,7 +41,7 @@ const SingleMoviePage = () => {
               id="main-sec"
             >
               <ImageWithLoading
-                className="object-contain object-center rounded h-[400px] w-full"
+                className="object-contain object-center rounded h-[400px] w-auto"
                 styleLoading={" w-[100%] h-[400px] "}
                 src={`${import.meta.env.VITE_IMAGE_URL}${
                   showRightData &&
@@ -67,17 +67,17 @@ const SingleMoviePage = () => {
                 <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
                   Original Language :{" "}
                   {showRightData &&
-                    showRightData?.original_language.toUpperCase()}
+                    showRightData?.original_language?.toUpperCase()}
                 </p>
 
                 <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
                   Release Date :{" "}
-                  {showRightData && showRightData.release_date.toUpperCase()}
+                  {showRightData && showRightData.release_date?.toUpperCase()}
                 </p>
 
                 {showRightData?.media_type && (
                   <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                    Media Type : {showRightData.media_type.toUpperCase()}
+                    Media Type : {showRightData.media_type?.toUpperCase()}
                   </p>
                 )}
 
@@ -94,7 +94,7 @@ const SingleMoviePage = () => {
               <div className="flex gap-1 flex-wrap w-full">
                 <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
                   Vote Average :{" "}
-                  {showRightData && showRightData.vote_average.toFixed(1)}/10
+                  {showRightData && showRightData?.vote_average?.toFixed(1)}/10
                 </p>
                 <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
                   Popularity : {showRightData && showRightData.popularity}
@@ -107,7 +107,7 @@ const SingleMoviePage = () => {
                 </span>
                 <div className="flex gap-1 flex-wrap">
                   {showRightData?.genres &&
-                    showRightData?.genres.map((genreId, key) => (
+                    showRightData?.genres?.map((genreId, key) => (
                       <Link
                         key={key}
                         className="text-[1em] bg-slate-800 py-1 px-2 text-white font-bold rounded font-mono hover:bg-slate-600 border  hover:border-black"
@@ -184,7 +184,7 @@ const SingleMoviePage = () => {
               </h5>
               <div className="flex justify-center gap-5 flex-wrap">
                 {showRightData &&
-                  showRightData.production_companies.map((value, key) => (
+                  showRightData?.production_companies?.map((value, key) => (
                     <div
                       className="border h-[100px] flex p-2 rounded-md items-center gap-3"
                       key={key}

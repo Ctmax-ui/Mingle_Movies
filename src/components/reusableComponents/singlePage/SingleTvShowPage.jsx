@@ -47,7 +47,7 @@ const SingleTvShowPage = () => {
               id="main-sec"
             >
               <ImageWithLoading
-                className="object-contain object-center rounded h-[400px] w-full"
+                className="object-contain object-center rounded h-[400px] w-auto"
                 styleLoading={" w-[100%] h-[400px] "}
                 src={`${import.meta.env.VITE_IMAGE_URL}${
                   showRightData &&

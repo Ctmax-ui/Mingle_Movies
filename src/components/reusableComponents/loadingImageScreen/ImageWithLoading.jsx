@@ -55,7 +55,7 @@ function ImageWithLoading({ src, className, styleLoading }) {
       <img
         src={src}
         alt="Your Image"
-        className={` ${isLoaded ? 'block': 'hidden'} ${className} `}
+        className={` ${isLoaded ? 'block': 'hidden'} ${className}`+ ''}
         onLoad={handleImageLoad}
       />
       

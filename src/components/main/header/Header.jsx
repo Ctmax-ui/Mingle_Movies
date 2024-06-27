@@ -25,7 +25,7 @@ const Header = () => {
             <Link to={'tvshow/'} className="mr-5 text-lg font-bold hover:text-gray-900">TV-Shows</Link>
             <Link className="mr-5 text-lg font-bold hover:text-gray-900">Popular Stars</Link>
           </nav>
-          <button className="inline-flex items-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded mt-4 md:mt-0 text-xl">
+          <Link to={"/query/"} className="inline-flex items-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded mt-4 md:mt-0 text-xl">
             Search
             <svg
               fill="none"
@@ -38,7 +38,7 @@ const Header = () => {
             >
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
-          </button>
+          </Link>
         </div>
       </header>
     </>
