@@ -8,6 +8,7 @@ import Footer from "./components/main/footer/Footer";
 import QueryPage from "./components/main/queryPage/QueryPage"
 import SingleMoviePage from "./components/reusableComponents/singlePage/SingleMoviePage";
 import SingleTvShowPage from "./components/reusableComponents/singlePage/SingleTvShowPage";
+import SinglePersonShowPage from "./components/reusableComponents/singlePage/SinglePersonPage"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="movies/:movieId" element={<SingleMoviePage />} />
         <Route path="tvshow" element={<TvShow />} />
         <Route path="tvshow/:tvshowId" element={<SingleTvShowPage />} />
+        <Route path="person/:personId" element={<SinglePersonShowPage />} />
 
         <Route path="query">
           <Route index element={<QueryPage />} />

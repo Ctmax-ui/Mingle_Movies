@@ -15,8 +15,10 @@ const QueryPage = () => {
 
     useEffect(()=>{
 
-        if(queryData && queryData.category === 'default'){
+        if(queryData !== null && queryData.category === 'default'){
             setQueryUrl(`https://api.themoviedb.org/3/search/multi?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=1`)
+        } else if(queryData  && queryData.category === 'person'){
+          setQueryUrl(`https://api.themoviedb.org/3/search/person?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=1`)
         }
 
     },[queryData])
@@ -26,13 +28,15 @@ const QueryPage = () => {
     // console.log(queryData);
     // console.log(fetchedData);
 
+   
+
   return (
     <>
       <div className="container  my-4 mx-auto">
         <SearchForm onChange={handleFormSubmit} />
 
         <div className="my-5 container mx-auto flex flex-wrap gap-3 justify-center">
-            {fetchedData && fetchedData.results.map((result, key, )=>(
+            {fetchedData && fetchedData?.results?.length <=0? <h1>search somthing</h1> : fetchedData?.results?.map((result, key, )=>(
                 <MediaCard key={key} result={result} mediaType={result.media_type} />
             ))}
         </div>

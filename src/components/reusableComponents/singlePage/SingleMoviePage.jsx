@@ -29,7 +29,7 @@ const SingleMoviePage = () => {
     );
   }
 
-  // console.log(showRightData && showRightData);
+  console.log(showRightData && showRightData);
 
   return (
     <>
@@ -37,7 +37,7 @@ const SingleMoviePage = () => {
         <div className="px-3 xl:px-32 h-auto">
           <div className="container md:max-w-[95%] mx-auto flex px-5 py-5 md:flex-row flex-col gap-5 items-center my-5 h-auto border border-black rounded-md">
             <div
-              className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-0 md:mb-10 flex justify-center h-full"
+              className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 flex justify-center h-full"
               id="main-sec"
             >
               <ImageWithLoading
@@ -87,7 +87,7 @@ const SingleMoviePage = () => {
                     (showRightData.adult ? "Adult" : "Family Friendly")}
                 </p>
                 <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
-                  Type : {showRightData && showRightData.status}
+                  Status : {showRightData && showRightData.status}
                 </p>
               </div>
 
@@ -173,42 +173,62 @@ const SingleMoviePage = () => {
 
         <div className=" container md:max-w-[95%] mx-auto px-3 xl:px-28">
           <div className="border border-black rounded-md p-5">
-            <div className=" text-center">
-              <h5 className=" text-black text-4xl font-bold mb-3">Overview</h5>
-              <p>{showRightData && showRightData.overview}</p>
-            </div>
-
-            <div className=" text-center mt-10">
-              <h5 className=" text-black text-3xl font-bold mb-3">
-                Produced By
-              </h5>
-              <div className="flex justify-center gap-5 flex-wrap">
-                {showRightData &&
-                  showRightData?.production_companies?.map((value, key) => (
-                    <div
-                      className="border h-[100px] flex p-2 rounded-md items-center gap-3"
-                      key={key}
-                    >
-                      {value.logo_path && (
-                        <img
-                          className="w-[100px] h-[100px] object-contain p-2"
-                          src={`${import.meta.env.VITE_IMAGE_URL}${
-                            value && value.logo_path
-                          }`}
-                          alt=""
-                        />
-                      )}
-                      <div className="">
-                        <p className=" font-semibold text-black">
-                          {value.name}
-                        </p>
-                        <p>Country : {value.origin_country}</p>
-                      </div>
-                    </div>
-                  ))}
+            {showRightData && showRightData.overview !== "" ? (
+              <div className=" text-center">
+                <h5 className=" text-black text-4xl font-bold mb-3">
+                  Overview
+                </h5>
+                <p>{showRightData.overview}</p>
               </div>
-            </div>
+            ) : (
+              ""
+            )}
+
+            {showRightData && showRightData.overview !== "" ? (
+              <div className=" text-center mt-10">
+                <h5 className=" text-black text-3xl font-bold mb-3">
+                  Produced By
+                </h5>
+                <div className="flex justify-center gap-5 flex-wrap">
+                  {showRightData &&
+                    showRightData?.production_companies?.map((value, key) => (
+                      <div
+                        className="border h-[100px] flex p-2 rounded-md items-center gap-3"
+                        key={key}
+                      >
+                        {value.logo_path && (
+                          <img
+                            className="w-[100px] h-[100px] object-contain p-2"
+                            src={`${import.meta.env.VITE_IMAGE_URL}${
+                              value && value.logo_path
+                            }`}
+                            alt=""
+                          />
+                        )}
+                        <div className="">
+                          <p className=" font-semibold text-black">
+                            {value.name}
+                          </p>
+                          <p>Country : {value.origin_country}</p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ) : (
+              <h3 className="text-center">Nothing to show.</h3>
+            )}
           </div>
+        </div>
+
+        <div>
+          <MediaCardSlider
+            url={`${import.meta.env.VITE_URL}movie/${
+              showRightData && showRightData.id
+            }/credits?language=en-US&page=1`}
+            mediaType={"person"}
+            title={"Movie Casts"}
+          />
         </div>
 
         {showRightData && (
@@ -228,7 +248,7 @@ const SingleMoviePage = () => {
                     showRightData && showRightData.id
                   }/similar?language=en-US&page=1`}
                   mediaType={"movies"}
-                  title={"Similar"}
+                  title={"Similar Movies"}
                 />
               </div>
 
@@ -238,7 +258,7 @@ const SingleMoviePage = () => {
                     showRightData && showRightData.id
                   }/recommendations?language=en-US&page=1`}
                   mediaType={"movies"}
-                  title={"Recommended"}
+                  title={"Recommended Movies"}
                 />
               </div>
             </div>

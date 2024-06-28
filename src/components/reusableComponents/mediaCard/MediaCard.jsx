@@ -5,19 +5,21 @@ import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 
 const genreMap = useGetGenre();
 
-const getRightType = (type) => {
+const getRightType = (m_type, type) => {
+  const mapType = (t) => {
+    switch (t) {
+      case "tv":
+      case "tvshow":
+        return "tvshow";
+      case "movie":
+      case "movies":
+        return "movies";
+      default:
+        return null;
+    }
+  };
 
-  if(type === 'tv'){
-    return 'tvshow'
-  }else if(type === 'tvshow'){
-    return 'tvshow'
-  }else if(type === 'movie'){
-    return 'movies'
-  }else if(type === 'movies'){
-    return 'movies'
-  }else{
-    return 'not-found'
-  }
+  return mapType(m_type) || mapType(type) || "person";
 };
 
 const rightImage = (val1, val2, val3) => {
@@ -28,42 +30,64 @@ const rightImage = (val1, val2, val3) => {
   } else if (val3 !== null && val3 !== undefined) {
     return `https://image.tmdb.org/t/p/w500${val3}`;
   } else {
-    return 'https://dummyimage.com/200x300/000000/ffffff.png&text=Image+not+found';
+    return "https://dummyimage.com/200x300/000000/ffffff.png&text=Image+not+found";
   }
 };
 
+const getMediaType = (result, mediaType) => {
+  if (result.media_type != null) {
+    return result.media_type.toUpperCase();
+  } else if (result.order != null) {
+    return `Actor: ${result.order}`;
+  } else if (mediaType != null && mediaType !== '') {
+    return mediaType.toUpperCase();
+  } else {
+    return 'Undefined';
+  }
+};
+
+
 const MediaCard = ({ result, mediaType }) => {
 
-
+  // console.log(result);
 
   return (
     <>
       <div className="flex relative md:h-[300px] h-[250px] border border-slate-600 rounded-md">
-        {result.media_type ? (
+        {result ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
-            Type : {result?.media_type?.toUpperCase()}
+            { getMediaType(result, mediaType) }
           </h4>
-        ) : (
-          ""
-        )}
+        ) : ''}
 
         <p className=" absolute z-10 bg-black bg-opacity-30 text-white left-0 p-2 mt-1 ms-1 font-bold py-1 rounded ">
           {" "}
-          {result?.vote_average?.toFixed(1)}
+          {result?.vote_average?.toFixed(1) || result?.popularity?.toFixed(1)}
         </p>
 
         <Link
-          to={`/${getRightType(mediaType)}/${result && result.id}`}
+          to={`/${getRightType(result.media_type?.toLowerCase(), mediaType?.toLowerCase())}/${
+            result && result.id
+          }`}
           className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-10 text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500 w-full"
         >
           {result.title || result.name}
         </Link>
 
-        <p className="absolute bottom-12 right-0 me-1 z-10 sm:text-[12px] md:text-[.7em] text-[9px] bg-black text-white bg-opacity-30 p-1 px-2 rounded-md font-bold ">
-          Relesed on: {result.release_date || result.first_air_date}
-        </p>
+        {result.release_date || result.first_air_date ? (
+          <p className="absolute bottom-12 right-0 me-1 z-10 sm:text-[12px] md:text-[.7em] text-[9px] bg-black text-white bg-opacity-30 p-1 px-2 rounded-md font-bold ">
+            Relesed on: {result.release_date || result.first_air_date}
+          </p>
+        ) : (
+          ""
+        )}
+
         <ImageWithLoading
-          src={rightImage(result.poster_path, result.profile_path, result.backdrop_path )}
+          src={rightImage(
+            result.poster_path,
+            result.profile_path,
+            result.backdrop_path
+          )}
           className="inset-1 h-full w-full object-center object-cover rounded-md "
           styleLoading={" w-[100%] h-full absolute"}
         />
@@ -73,13 +97,15 @@ const MediaCard = ({ result, mediaType }) => {
             {result?.adult ? "18+" : "Family friendly"}
           </h2>
           <Link
-            to={`/${getRightType(mediaType)}/${result && result.id}`}
+            to={`/${getRightType(result?.media_type, mediaType)}/${
+              result && result.id
+            }`}
             className="title-font text-lg font-medium hover:text-blue-500 mb-3 text-white"
           >
             {result.title || result.name}
           </Link>
           <p className="leading-relaxed overflow-hidden h-[50%] text-white">
-            <span className="text-ellipsis">{result.overview}</span>
+            <span className="text-ellipsis">{result.overview || 'Character : '+result.character}</span>
           </p>
 
           {/* <p className=" absolute top-0 right-0 me-2">

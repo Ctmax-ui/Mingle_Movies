@@ -36,10 +36,11 @@ const SearchForm = ({ onChange }) => {
           onChange={handleChange}
           required
         >
-          <option value="default">Select Type</option>
-          <option value="movie">Movie</option>
+          <option value="default">All</option>
+          <option value="person">Actor</option>
           <option value="tvshow">Tv-show</option>
         </select>
+
 
         <div className="relative w-full">
           <input

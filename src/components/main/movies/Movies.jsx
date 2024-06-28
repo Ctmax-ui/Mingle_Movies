@@ -36,13 +36,13 @@ const Movies = () => {
             <TrandingsToday
               fetchedData={trandingMovieData}
               maximumResult={18}
-              mediaType={"movies"}
+              mediaType={"movie"}
             />
             <TopRated
             className="mt-10"
               fetchedData={topMovieData}
               maximumResult={width && width <= 1024 ? 18 : 12}
-              mediaType={"movies"}
+              mediaType={"movie"}
             />
           </div>
         </section>
