@@ -29,16 +29,17 @@ const SearchForm = ({ onChange }) => {
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
       <div className="flex items-center space-x-4">
         <select
-          className="outline-none focus:outline-none bg-transparent flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white dark:border-gray-600 "
+          className="outline-none justify-center focus:outline-none bg-transparent flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white dark:border-gray-600 "
           name="category"
           id="category"
           value={formData.category}
           onChange={handleChange}
           required
         >
-          <option value="default">All</option>
-          <option value="person">Actor</option>
-          <option value="tvshow">Tv-show</option>
+          <option className="text-left" value="default">All</option>
+          <option className="text-left" value="movie">Movies</option>
+          <option className="text-left" value="tvshow">Tv-show</option>
+          <option className="text-left" value="person">Actor</option>
         </select>
 
 
@@ -48,7 +49,7 @@ const SearchForm = ({ onChange }) => {
             id="search-dropdown"
             name="mediaRef"
             className="outline-none block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-            placeholder="Search Movies, Tv-Shows..."
+            placeholder="Search Movies, Tv-Shows, Catagories......"
             value={formData.mediaRef}
             onChange={handleChange}
             required

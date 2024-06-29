@@ -42,18 +42,18 @@ const getMediaType = (result, mediaType) => {
   } else if (mediaType != null && mediaType !== '') {
     return mediaType.toUpperCase();
   } else {
-    return 'Undefined';
+    return '';
   }
 };
 
 
-const MediaCard = ({ result, mediaType }) => {
+const MediaCard = ({ result, mediaType,customCardClass }) => {
 
   // console.log(result);
 
   return (
     <>
-      <div className="flex relative md:h-[300px] h-[250px] border border-slate-600 rounded-md">
+      <div className={`flex relative md:h-[300px] h-[300px] hover:flex-grow-[1] max-w-[400px] transition-all duration-500 border border-slate-600 rounded-md ${customCardClass}`} >
         {result ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
             { getMediaType(result, mediaType) }
@@ -88,7 +88,7 @@ const MediaCard = ({ result, mediaType }) => {
             result.profile_path,
             result.backdrop_path
           )}
-          className="inset-1 h-full w-full object-center object-cover rounded-md "
+          className="inset-1 h-full w-full object-top sm:object-center object-cover rounded-md "
           styleLoading={" w-[100%] h-full absolute"}
         />
 
