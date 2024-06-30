@@ -6,9 +6,8 @@ import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 
-// console.log(showRightData && showRightData);
-
 const SinglePersonPage = () => {
+  
   const { personId } = useParams();
 
   const { pathname } = useLocation();
@@ -23,7 +22,6 @@ const SinglePersonPage = () => {
     `${import.meta.env.VITE_URL}person/${personId}?language=en-US`
   );
 
-  console.log(showRightData);
 
   if (!showRightData) {
     return (

@@ -5,6 +5,7 @@ import useGetGenre from "../../../hooks/useGetGenre";
 import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
+import MediaCasts from "../mediaCasts/MediaCasts";
 
 const SingleMoviePage = () => {
   const { movieId } = useParams();
@@ -29,7 +30,7 @@ const SingleMoviePage = () => {
     );
   }
 
-  console.log(showRightData && showRightData);
+  // console.log(showRightData && showRightData);
 
   return (
     <>
@@ -222,7 +223,7 @@ const SingleMoviePage = () => {
         </div>
 
         <div>
-          <MediaCardSlider
+          <MediaCasts
             url={`${import.meta.env.VITE_URL}movie/${
               showRightData && showRightData.id
             }/credits?language=en-US&page=1`}

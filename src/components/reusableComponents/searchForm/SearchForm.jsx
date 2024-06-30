@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const SearchForm = ({ onChange }) => {
+  
   const [formData, setFormData] = useState({
     category: "default",
-    mediaRef: "",
+    mediaRef: sessionStorage.getItem('query').replace(/[^a-zA-Z]/g, '')||"",
     mediaIsAdult: false,
 
   });

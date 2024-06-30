@@ -5,6 +5,7 @@ import useGetGenre from "../../../hooks/useGetGenre";
 import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
+import MediaCasts from "../mediaCasts/MediaCasts";
 
 const SingleTvShowPage = () => {
   const { tvshowId } = useParams();
@@ -236,16 +237,15 @@ const SingleTvShowPage = () => {
           </div>
         </div>
 
-        <div >
-          <MediaCardSlider
+        
+        <MediaCasts
             url={`${import.meta.env.VITE_URL}tv/${
               showRightData && showRightData.id
             }/credits?language=en-US&page=1`}
             mediaType={"person"}
-            title={"Show Casts"}
-            sliderCount={99}
+            title={"Movie Casts"}
           />
-        </div>
+        
 
         {showRightData && (
           <>
@@ -263,7 +263,7 @@ const SingleTvShowPage = () => {
                   url={`${import.meta.env.VITE_URL}tv/${
                     showRightData && showRightData.id
                   }/recommendations?language=en-US&page=1`}
-                  title={"Recomanded"}
+                  title={"Recomanded Show"}
                   mediaType={"tvshow"}
                 />
               </div>
@@ -273,7 +273,7 @@ const SingleTvShowPage = () => {
                   url={`${import.meta.env.VITE_URL}tv/${
                     showRightData && showRightData.id
                   }/similar?language=en-US&page=1`}
-                  title={"Similar"}
+                  title={"Similar Show"}
                   mediaType={"tvshow"}
                 />
               </div>

@@ -47,13 +47,25 @@ const getMediaType = (result, mediaType) => {
 };
 
 
-const MediaCard = ({ result, mediaType,customCardClass }) => {
+const getResultDescription = (result) => {
+  if (result.overview) {
+    return result.overview;
+  } else if (result.character) {
+    return 'Character : ' + result.character;
+  } else if (result.known_for_department) {
+    return 'Department : ' + result.known_for_department;
+  } else {
+    return 'Unknown';
+  }
+};
 
-  // console.log(result);
+
+const MediaCard = ({ result, mediaType, customCardClass }) => {
+// console.log(customCardClass);
 
   return (
     <>
-      <div className={`flex relative md:h-[300px] h-[300px] hover:flex-grow-[1] max-w-[400px] transition-all duration-500 border border-slate-600 rounded-md ${customCardClass}`} >
+      <div className={`flex relative  hover:flex-grow-[1] transition-all duration-1000 border border-slate-600 rounded-md ${customCardClass ? customCardClass : 'md:h-[300px] h-[300px] max-w-[400px]'}`} >
         {result ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
             { getMediaType(result, mediaType) }
@@ -88,7 +100,7 @@ const MediaCard = ({ result, mediaType,customCardClass }) => {
             result.profile_path,
             result.backdrop_path
           )}
-          className="inset-1 h-full w-full object-top sm:object-center object-cover rounded-md "
+          className={`inset-1 h-full w-full object-top sm:object-top object-cover rounded-md hover:sm:object-top  `}
           styleLoading={" w-[100%] h-full absolute"}
         />
 
@@ -100,12 +112,12 @@ const MediaCard = ({ result, mediaType,customCardClass }) => {
             to={`/${getRightType(result?.media_type, mediaType)}/${
               result && result.id
             }`}
-            className="title-font text-lg font-medium hover:text-blue-500 mb-3 text-white"
+            className="title-font text-lg font-medium hover:text-slate-300 mb-3 text-white"
           >
             {result.title || result.name}
           </Link>
           <p className="leading-relaxed overflow-hidden h-[50%] text-white">
-            <span className="text-ellipsis">{result.overview || 'Character : '+result.character}</span>
+            <span className="text-ellipsis">{getResultDescription(result)}</span>
           </p>
 
           {/* <p className=" absolute top-0 right-0 me-2">

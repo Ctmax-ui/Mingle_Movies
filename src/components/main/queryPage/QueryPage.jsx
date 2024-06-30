@@ -1,60 +1,54 @@
 import React, { useEffect, useState } from "react";
 import SearchForm from "../../reusableComponents/searchForm/SearchForm";
-import useMediaFetcher from "../../../hooks/useMediaFetcher";
 import MediaCard from "../../reusableComponents/mediaCard/MediaCard";
+import useGetRightSearchUrl from "../../../hooks/useGetRightSearchUrl";
 
 const QueryPage = () => {
   const [queryData, setQueryData] = useState(null);
 
-  const [resultPage, setResultPage] = useState(1);
-
-  const [queryUrl, setQueryUrl] = useState(null);
+  const [currentPage, setCurrentPage] = useState(null);
 
   const handleFormSubmit = (data) => {
     setQueryData(data);
+    setResultPage(1);
   };
+  const { fetchedData, resultPage, setResultPage, queryUrl } =
+    useGetRightSearchUrl(queryData);
 
   useEffect(() => {
-    if (queryData) {
-      if (queryData.category === "default") {
-        setQueryUrl(
-          `https://api.themoviedb.org/3/search/multi?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=${resultPage}`
-        );
-      } else if (queryData.category === "movie") {
-        setQueryUrl(
-          `https://api.themoviedb.org/3/search/movie?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=${resultPage}`
-        );
-      } else if (queryData.category === "tvshow") {
-        setQueryUrl(
-          `https://api.themoviedb.org/3/search/tv?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=${resultPage}`
-        );
-      } else if (queryData.category === "person") {
-        setQueryUrl(
-          `https://api.themoviedb.org/3/search/person?query=${queryData.mediaRef}&include_adult=${queryData.mediaIsAdult}&language=en-US&page=${resultPage}`
-        );
-      }
+    if (queryData?.mediaRef !== "" && queryData?.mediaRef !== undefined) {
+      sessionStorage.setItem("query", JSON.stringify(queryData?.mediaRef));
     }
-  }, [queryData, resultPage]);
+  }, [handleFormSubmit, resultPage]);
 
-  const { fetchedData } = useMediaFetcher(queryUrl);
   console.log(fetchedData);
-  // console.log(resultPage);
 
   return (
     <>
       <div className=" w-[98%] my-4 mx-auto">
         <SearchForm onChange={handleFormSubmit} />
 
+        {!fetchedData?.total_results <= 0 ? (
+          <div className="flex w-[98%] justify-between mx-auto">
+            <div className="">Result Found : {fetchedData?.total_results}</div>
+            <div className="">
+              Page : {fetchedData?.page + "/" + fetchedData?.total_pages}{" "}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="my-5 w-full mx-auto flex flex-wrap gap-3 justify-center ">
           {fetchedData && fetchedData?.results?.length <= 0 ? (
-            <h1>search somthing</h1>
+            <h3>Search Somthing.....</h3>
           ) : (
             fetchedData?.results?.map((result, key) => (
               <MediaCard
                 key={key}
                 result={result}
-                mediaType={result.media_type}
-                customCardClass=' w-[48%] xs:w-[30%] sm:w-[30%] md:w-[210px]'
+                mediaType={result.media_type || queryData.category}
+                customCardClass=" w-[48%] xs:w-[30%] sm:w-[30%] md:w-[210px] h-[300px] max-w-[300px]"
               />
             ))
           )}
@@ -70,7 +64,7 @@ const QueryPage = () => {
             </button>
           )}
 
-          {fetchedData?.result?.length <= 0 && (
+          {fetchedData?.total_pages >= 2 && (
             <button
               onClick={() => setResultPage(resultPage + 1)}
               className="border px-4 py-2 hover:bg-black hover:text-white transition-all"
