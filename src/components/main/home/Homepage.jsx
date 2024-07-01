@@ -4,7 +4,7 @@ const Homepage = () => {
 
   return (
     <>
-      <section className="container mx-auto mt-[5em] lg:p-5 p-0 max-w-[95%]">
+      <section className="container mx-auto mt-[5em] lg:p-5 p-0 max-w-[95%] h-screen">
         <div className="flex gap-2 md:flex-row flex-col">
           lol
         </div>

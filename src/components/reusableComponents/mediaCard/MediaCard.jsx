@@ -65,7 +65,7 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
 
   return (
     <>
-      <div className={`flex relative  hover:flex-grow-[1] transition-all duration-1000 border border-slate-600 rounded-md ${customCardClass ? customCardClass : 'md:h-[300px] h-[300px] max-w-[400px]'}`} >
+      <div className={`flex relative  hover:flex-grow-[1] transition-all duration-1000 border border-slate-600 rounded-md ${customCardClass ? customCardClass : 'md:h-[300px] h-[300px] max-w-[400px]'} overflow-hidden`} >
         {result ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
             { getMediaType(result, mediaType) }
@@ -81,7 +81,7 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
           to={`/${getRightType(result.media_type?.toLowerCase(), mediaType?.toLowerCase())}/${
             result && result.id
           }`}
-          className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-10 text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500 w-full"
+          className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-30 text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500 w-full underline hover:no-underline "
         >
           {result.title || result.name}
         </Link>
@@ -104,7 +104,7 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
           styleLoading={" w-[100%] h-full absolute"}
         />
 
-        <div className="px-2 py-10 z-10 w-full border-x-2 border-t-2 border-slate-600 bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[85.5%] absolute">
+        <div className="px-2 py-10 z-10 w-full border-x-2 border-t-2 border-slate-600 backdrop-blur-[1.5px] bg-black bg-opacity-50 opacity-0 hover:opacity-100 overflow-auto scroll-container sm:block hidden rounded-t-md transition duration-300 ease-out h-[86%] absolute">
           <h2 className="tracking-widest text-sm title-font font-medium text-slate-300 mb-1">
             {result?.adult ? "18+" : "Family friendly"}
           </h2>
@@ -116,7 +116,7 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
           >
             {result.title || result.name}
           </Link>
-          <p className="leading-relaxed overflow-hidden h-[50%] text-white">
+          <p className="leading-relaxed overflow-hidden h-[60%] text-white">
             <span className="text-ellipsis">{getResultDescription(result)}</span>
           </p>
 
@@ -124,7 +124,7 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
             Relesed on : {result.first_air_date || result.release_date}
           </p> */}
 
-          <p className="flex mt-3 flex-wrap gap-1 ">
+          <p className="flex mt-3 justify-center flex-wrap gap-1 ">
             {result &&
               result?.genre_ids?.map((genreId, key) => (
                 <span

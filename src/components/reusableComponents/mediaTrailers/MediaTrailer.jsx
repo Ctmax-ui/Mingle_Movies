@@ -16,7 +16,7 @@ const MediaTrailer = ({ trailerUrl }) => {
       <h5 className="w-full text-black text-3xl text-center font-bold mb-10">
         Extra Content
       </h5>
-      <div className="mx-auto w-[90%]">
+      <div className="w-full ">
         <ul className="flex justify-center gap-4 flex-wrap-reverse">
           {fetchedData?.results &&
             fetchedData.results
@@ -25,9 +25,9 @@ const MediaTrailer = ({ trailerUrl }) => {
                 fetchedData?.results?.length
               )
               .map((video, key) => (
-                <li key={key} className="rounded-lg overflow-hidden">
+                <li key={key} className="w-[100%] mx-2 lg:w-[45%]  rounded-lg overflow-hidden">
                   <iframe
-                    className=" w-[550px] h-[300px]"
+                    className=" w-[100%] h-[300px]"
                     src={`https://www.youtube.com/embed/${video.key}`}
                     title="YouTube video player"
                     allowFullScreen

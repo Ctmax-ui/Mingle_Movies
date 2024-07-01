@@ -6,6 +6,7 @@ import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 import MediaCasts from "../mediaCasts/MediaCasts";
+import { FaArrowRight } from "react-icons/fa";
 
 const SingleMoviePage = () => {
   const { movieId } = useParams();
@@ -52,20 +53,21 @@ const SingleMoviePage = () => {
             </div>
 
             <div className=" md:w-1/2 flex flex-col md:text-left items-center text-center h-auto pt-3 relative gap-3">
+            
               <p className="">
                 Original Name:{" "}
                 {showRightData &&
                   (showRightData.original_name || showRightData.original_title)}
               </p>
-              <h1 className="title-font sm:text-3xl text-3xl font-bold text-gray-900">
+              <h1 className="title-font sm:text-3xl text-2xl font-bold text-gray-900">
                 "{showRightData && (showRightData.title || showRightData.name)}"
               </h1>
               <p className="leading-relaxed mb-4">
                 {showRightData && showRightData.tagline}
               </p>
 
-              <div className="flex w-full gap-3 flex-wrap">
-                <p className=" font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8">
+              <div className="flex w-full gap-3 flex-wrap md:text-lg text-md">
+                <p className=" font-bold bg-slate-800  text-white px-3 rounded font-mono leading-8">
                   Original Language :{" "}
                   {showRightData &&
                     showRightData?.original_language?.toUpperCase()}
@@ -92,7 +94,7 @@ const SingleMoviePage = () => {
                 </p>
               </div>
 
-              <div className="flex gap-1 flex-wrap w-full">
+              <div className="flex gap-1 flex-wrap w-full md:text-lg text-md">
                 <p className="font-bold bg-slate-800 text-white px-3 rounded font-mono leading-8 ">
                   Vote Average :{" "}
                   {showRightData && showRightData?.vote_average?.toFixed(1)}/10
@@ -102,7 +104,7 @@ const SingleMoviePage = () => {
                 </p>
               </div>
 
-              <div className="flex justify-start w-full">
+              <div className="flex justify-start w-full md:text-md text-md">
                 <span className=" font-bold text-black text-xl me-2">
                   Tags :{" "}
                 </span>
@@ -124,22 +126,8 @@ const SingleMoviePage = () => {
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 me-5"
                   to={`https://www.imdb.com/title/${showRightData?.imdb_id}`}
                 >
-                  Goto IMDB page{" "}
-                  <svg
-                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M1 5h12m0 0L9 1m4 4L9 9"
-                    />
-                  </svg>
+                  <span className="pe-1">Goto IMDB page  </span>
+                  <FaArrowRight />
                 </Link>
 
                 {showRightData && showRightData.homepage !== "" ? (
@@ -147,22 +135,8 @@ const SingleMoviePage = () => {
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     to={showRightData.homepage}
                   >
-                    Goto Movie Homepage{" "}
-                    <svg
-                      className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                      />
-                    </svg>
+                    <span className="pe-1">Goto Movie Homepage</span>
+                  <FaArrowRight />
                   </Link>
                 ) : (
                   ""
@@ -222,7 +196,7 @@ const SingleMoviePage = () => {
           </div>
         </div>
 
-        <div>
+        
           <MediaCasts
             url={`${import.meta.env.VITE_URL}movie/${
               showRightData && showRightData.id
@@ -230,7 +204,7 @@ const SingleMoviePage = () => {
             mediaType={"person"}
             title={"Movie Casts"}
           />
-        </div>
+        
 
         {showRightData && (
           <>

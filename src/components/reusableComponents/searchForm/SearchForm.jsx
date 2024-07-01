@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const SearchForm = ({ onChange }) => {
+const SearchForm = ({ onChange, setResultPage }) => {
   
   const [formData, setFormData] = useState({
     category: "default",
-    mediaRef: sessionStorage.getItem('query').replace(/[^a-zA-Z]/g, '')||"",
+    mediaRef: sessionStorage.getItem('query')?.replace(/[\/\\"]/g, '') ||"",
     mediaIsAdult: false,
 
   });
@@ -27,7 +27,7 @@ const SearchForm = ({ onChange }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+    <form onSubmit={handleSubmit} onKeyUp={()=>setResultPage(1)} className="max-w-lg mx-auto">
       <div className="flex items-center space-x-4">
         <select
           className="outline-none justify-center focus:outline-none bg-transparent flex-shrink-0 z-10 inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white dark:border-gray-600 "

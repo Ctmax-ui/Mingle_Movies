@@ -243,7 +243,7 @@ const SingleTvShowPage = () => {
               showRightData && showRightData.id
             }/credits?language=en-US&page=1`}
             mediaType={"person"}
-            title={"Movie Casts"}
+            title={"Show Casts"}
           />
         
 

@@ -28,17 +28,15 @@ const MediaCasts = ({ url, mediaType, castCount, title }) => {
         <div className="flex flex-wrap gap-4 justify-center">
           {fetchedData && fetchedData.cast?.slice(0, showResult || 18)
               .map((result, key) => (
-                <div
-                  key={key}
-                  // className="lg:w-1/3 sm:w-1/2 w-1/2 md:p-2 p-1"
-                  id={`section-${result.id}`}
-                >
+                
                   <MediaCard
                     result={result}
                     mediaType={mediaType}
-                    customCardClass='h-[250px] w-[200px]'
+                    customCardClass='h-[200px] md:h-[250px]  md:w-[200px] w-[45%] max-w-[200px]'
+                    key={key}
+                    id={`section-${result.id}`}
                   />
-                </div>
+                
               ))}
         </div>
              {fetchedData?.cast?.length <= showResult ? '':

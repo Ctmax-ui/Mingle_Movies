@@ -22,7 +22,7 @@ const TvShow = () => {
 
   return (
     <>
-      <div className="bg-black container max-w-full">
+      <div className="bg-black container max-w-full h-screen">
         <div className="pt-5 pb-10 container mx-auto bg-black swiper-container">
           <h1 className="text-white text-4xl text-center font-semibold mb-4">TV-Shows Airing Today</h1>
           <BigScreenSwiper
