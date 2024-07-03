@@ -10,8 +10,13 @@ import SingleMoviePage from "./components/reusableComponents/singlePage/SingleMo
 import SingleTvShowPage from "./components/reusableComponents/singlePage/SingleTvShowPage";
 import SinglePersonShowPage from "./components/reusableComponents/singlePage/SinglePersonPage"
 import Test from "./components/reusableComponents/test/Test";
+import { useEffect, useState } from "react";
+import Actors from "./components/main/actors/Actors";
 
 function App() {
+
+
+
   return (
     <>
       <Header />
@@ -22,6 +27,7 @@ function App() {
         <Route path="movies/:movieId" element={<SingleMoviePage />} />
         <Route path="tvshow" element={<TvShow />} />
         <Route path="tvshow/:tvshowId" element={<SingleTvShowPage />} />
+        <Route path="actors" element={<Actors />} />
         <Route path="person/:personId" element={<SinglePersonShowPage />} />
         <Route path="test" element={<Test />} />
 

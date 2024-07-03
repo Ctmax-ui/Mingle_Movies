@@ -17,7 +17,7 @@ const MediaCasts = ({ url, mediaType, castCount, title }) => {
     setShowResult(showResult+12)
    }
 
-  console.log(showResult,fetchedData);
+  // console.log(showResult,fetchedData);
 
   return (
     <>

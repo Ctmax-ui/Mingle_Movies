@@ -40,7 +40,7 @@ const BigScreenSwiper = ({ fetchedData }) => {
         {fetchedData &&
           fetchedData.map((value, key) => (
             <SwiperSlide className=" bg-inherit" key={key} >
-              <BigScreenMediaCard value={value} />
+              <BigScreenMediaCard value={value}  />
             </SwiperSlide>
           ))}
 

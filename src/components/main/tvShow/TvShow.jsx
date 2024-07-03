@@ -7,6 +7,8 @@ import useWindowSizeGetter from "../../../hooks/useWindowSizeGetter";
 
 
 const TvShow = () => {
+
+  
   const { fetchedData: trandingTvShowData } = useMediaFetcher(
     `${import.meta.env.VITE_URL}trending/tv/day?language=en-US'`
   );

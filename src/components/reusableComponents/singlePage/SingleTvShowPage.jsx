@@ -6,8 +6,11 @@ import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 import MediaCasts from "../mediaCasts/MediaCasts";
+import Breadcumb from "../breadcumb/Breadcumb";
 
 const SingleTvShowPage = () => {
+
+  
   const { tvshowId } = useParams();
 
   const { pathname } = useLocation();
@@ -41,6 +44,22 @@ const SingleTvShowPage = () => {
   return (
     <>
       <section className="text-gray-600 body-font mb-10">
+        <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
+          <Link
+            to={sessionStorage.getItem("prevPage")}
+            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md"
+          >
+            Go Back
+          </Link>
+          <Breadcumb
+            linkTo={"/tvshow"}
+            mediaType={"Tv-show"}
+            mediaName={
+              showRightData && (showRightData.title || showRightData.name)
+            }
+          />
+        </div>
+
         <div className="px-3 xl:px-32 h-auto">
           <div className="container md:max-w-[95%] mx-auto flex px-5 py-5 md:flex-row flex-col gap-5 items-center my-5 h-auto border border-black rounded-md">
             <div
@@ -196,7 +215,6 @@ const SingleTvShowPage = () => {
           </div>
         </div>
 
-
         <div className=" container md:max-w-[95%] mx-auto px-3 xl:px-28">
           <div className="border border-black rounded-md p-5">
             <div className=" text-center">
@@ -237,15 +255,13 @@ const SingleTvShowPage = () => {
           </div>
         </div>
 
-        
         <MediaCasts
-            url={`${import.meta.env.VITE_URL}tv/${
-              showRightData && showRightData.id
-            }/credits?language=en-US&page=1`}
-            mediaType={"person"}
-            title={"Show Casts"}
-          />
-        
+          url={`${import.meta.env.VITE_URL}tv/${
+            showRightData && showRightData.id
+          }/credits?language=en-US&page=1`}
+          mediaType={"person"}
+          title={"Show Casts"}
+        />
 
         {showRightData && (
           <>

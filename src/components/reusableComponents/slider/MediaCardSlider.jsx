@@ -94,7 +94,7 @@ const MediaCardSlider = ({ url, mediaType, title, sliderCount, minSlider }) => {
     return <h4 className="w-full text-4xl text-center ">loading...</h4>;
   }
 
-  console.log(fetchedData );  
+  // console.log(fetchedData );  
 
   if(fetchedData.total_results <= 0 || fetchedData.cast <= 0){
     return ''

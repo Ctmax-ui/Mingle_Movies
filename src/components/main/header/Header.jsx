@@ -23,7 +23,7 @@ const Header = () => {
           <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
             <Link to={'movies/'} className="mr-5 text-lg font-bold hover:text-gray-900">Movies</Link>
             <Link to={'tvshow/'} className="mr-5 text-lg font-bold hover:text-gray-900">TV-Shows</Link>
-            <Link className="mr-5 text-lg font-bold hover:text-gray-900">Popular Stars</Link>
+            <Link to={'actors/'} className="mr-5 text-lg font-bold hover:text-gray-900">Popular Stars</Link>
           </nav>
           <Link to={"/query/"} className="inline-flex items-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded mt-4 md:mt-0 text-xl">
             Search

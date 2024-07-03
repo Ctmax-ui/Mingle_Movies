@@ -6,6 +6,8 @@ import useGetRightSearchUrl from "../../../hooks/useGetRightSearchUrl";
 import { useLocation } from "react-router-dom";
 
 const QueryPage = () => {
+
+  // sessionStorage.setItem('prevPage', window.location.href)
   
   const [queryData, setQueryData] = useState(() => {
     const savedQuery = sessionStorage.getItem("query");
@@ -38,7 +40,7 @@ const QueryPage = () => {
     sessionStorage.setItem("page", resultPage);
   }, [nextClickHandle, prevClickHandle]);
 
-  console.log(fetchedData);
+  // console.log(fetchedData);
 
   // for making screen appare on top if i click next or prev page
   const { pathname } = useLocation();

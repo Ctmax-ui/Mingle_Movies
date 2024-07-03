@@ -6,6 +6,9 @@ import "./Movies.css"
 import useWindowSizeGetter from "../../../hooks/useWindowSizeGetter";
 
 const Movies = () => {
+
+
+  
   const { fetchedData: trandingMovieData, isLoading: tMovideDataLoading } = useMediaFetcher(
     `${import.meta.env.VITE_URL}trending/movie/day?language=en-US'`
   );

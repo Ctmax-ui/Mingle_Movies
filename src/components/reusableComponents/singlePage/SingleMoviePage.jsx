@@ -7,8 +7,11 @@ import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 import MediaCasts from "../mediaCasts/MediaCasts";
 import { FaArrowRight } from "react-icons/fa";
+import Breadcumb from "../breadcumb/Breadcumb";
 
 const SingleMoviePage = () => {
+
+  
   const { movieId } = useParams();
 
   const { pathname } = useLocation();
@@ -35,7 +38,17 @@ const SingleMoviePage = () => {
 
   return (
     <>
-      <section className="text-gray-600 body-font mb-10">
+      <section className="text-gray-600 body-font mb-10 ">
+      <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
+          <Link
+            to={sessionStorage.getItem("prevPage")}
+            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md"
+          >
+            Go Back
+          </Link>
+          <Breadcumb linkTo={'/movies'} mediaType={'Movie'} mediaName={showRightData && (showRightData.title || showRightData.name)} />
+        </div>
+
         <div className="px-3 xl:px-32 h-auto">
           <div className="container md:max-w-[95%] mx-auto flex px-5 py-5 md:flex-row flex-col gap-5 items-center my-5 h-auto border border-black rounded-md">
             <div
@@ -53,7 +66,6 @@ const SingleMoviePage = () => {
             </div>
 
             <div className=" md:w-1/2 flex flex-col md:text-left items-center text-center h-auto pt-3 relative gap-3">
-            
               <p className="">
                 Original Name:{" "}
                 {showRightData &&
@@ -126,7 +138,7 @@ const SingleMoviePage = () => {
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 me-5"
                   to={`https://www.imdb.com/title/${showRightData?.imdb_id}`}
                 >
-                  <span className="pe-1">Goto IMDB page  </span>
+                  <span className="pe-1">Goto IMDB page </span>
                   <FaArrowRight />
                 </Link>
 
@@ -136,7 +148,7 @@ const SingleMoviePage = () => {
                     to={showRightData.homepage}
                   >
                     <span className="pe-1">Goto Movie Homepage</span>
-                  <FaArrowRight />
+                    <FaArrowRight />
                   </Link>
                 ) : (
                   ""
@@ -196,15 +208,13 @@ const SingleMoviePage = () => {
           </div>
         </div>
 
-        
-          <MediaCasts
-            url={`${import.meta.env.VITE_URL}movie/${
-              showRightData && showRightData.id
-            }/credits?language=en-US&page=1`}
-            mediaType={"person"}
-            title={"Movie Casts"}
-          />
-        
+        <MediaCasts
+          url={`${import.meta.env.VITE_URL}movie/${
+            showRightData && showRightData.id
+          }/credits?language=en-US&page=1`}
+          mediaType={"person"}
+          title={"Movie Casts"}
+        />
 
         {showRightData && (
           <>
