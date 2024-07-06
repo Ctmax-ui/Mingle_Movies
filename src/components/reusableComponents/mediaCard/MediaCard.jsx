@@ -35,12 +35,13 @@ const rightImage = (val1, val2, val3) => {
 };
 
 const getMediaType = (result, mediaType) => {
+
   if (result.media_type != null) {
-    return result.media_type.toUpperCase();
-  } else if (result.order != null) {
+    return result?.media_type?.toUpperCase();
+  } else if (result?.order != null) {
     return `Actor: ${result.order}`;
   } else if (mediaType != null && mediaType !== '') {
-    return mediaType.toUpperCase();
+    return mediaType?.toUpperCase();
   } else {
     return '';
   }
