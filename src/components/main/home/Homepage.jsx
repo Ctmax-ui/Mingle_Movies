@@ -7,16 +7,21 @@ import MediaCard from "../../reusableComponents/mediaCard/MediaCard";
 const Homepage = () => {
   const [mainCatagory, setMainCatagory] = useState('movie');
   const [subCatagory, setSubCatagory] = useState();
+  const [currentUrl, setCurrentUrl] = useState()
 
-  const url = (mainCatagory) => {
+  const url = (mainCatagory, subCatagory) => {
+    console.log(mainCatagory, subCatagory);
     if (mainCatagory === "movie") {
       return `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${subCatagory}`;
     } else {
       return `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${subCatagory}`;
     }
+    
   };
-
-  const { fetchedData } = useMediaFetcher(url(mainCatagory));
+  
+  const { fetchedData } = useMediaFetcher(url(mainCatagory, subCatagory)); 
+  
+  console.log(url(mainCatagory, subCatagory), fetchedData);
 
 
   const handleMainCatagory = (data) => {
@@ -27,14 +32,6 @@ const Homepage = () => {
     setSubCatagory(data.id);
   };
 
-  // Fetch data when mainCatagory or subCatagory changes
-
-
-
-  useEffect(() => {
-    console.log(mainCatagory, subCatagory, fetchedData);
-    console.log(url(mainCatagory));
-  }, [mainCatagory, subCatagory, useMediaFetcher]);
 
   return (
     <>
