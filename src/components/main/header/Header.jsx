@@ -21,6 +21,7 @@ const Header = () => {
           </div>
 
           <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+            <Link to={'/'} className="mr-5 text-lg font-bold hover:text-gray-900">Home</Link>
             <Link to={'movies/'} className="mr-5 text-lg font-bold hover:text-gray-900">Movies</Link>
             <Link to={'tvshow/'} className="mr-5 text-lg font-bold hover:text-gray-900">TV-Shows</Link>
             <Link to={'actors/'} className="mr-5 text-lg font-bold hover:text-gray-900">Popular Stars</Link>
