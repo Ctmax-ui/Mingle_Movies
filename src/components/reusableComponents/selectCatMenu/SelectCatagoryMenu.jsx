@@ -71,7 +71,7 @@ const SelectCatagoryMenu = ({ onChange, CatagoryType }) => {
   }
 
   return (
-    <div className="w-[50%] mx-auto flex gap-2 flex-wrap my-2">
+    <div className="w-[50%] mx-auto flex justify-center gap-2 flex-wrap my-2">
       <CatagoryMapping isMultipleSelecter={true} cataObject={options} currentSelected={selected} handleChange={handleChange} />
     </div>
   );

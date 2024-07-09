@@ -1,4 +1,8 @@
-html{
+html {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+body{
+    background: #fff;
 }

@@ -35,43 +35,48 @@ const rightImage = (val1, val2, val3) => {
 };
 
 const getMediaType = (result, mediaType) => {
-
   if (result.media_type != null) {
     return result?.media_type?.toUpperCase();
   } else if (result?.order != null) {
     return `Actor: ${result.order}`;
-  } else if (mediaType != null && mediaType !== '') {
+  } else if (mediaType != null && mediaType !== "") {
     return mediaType?.toUpperCase();
   } else {
-    return '';
+    return "";
   }
 };
-
 
 const getResultDescription = (result) => {
   if (result.overview) {
     return result.overview;
   } else if (result.character) {
-    return 'Character : ' + result.character;
+    return "Character : " + result.character;
   } else if (result.known_for_department) {
-    return 'Department : ' + result.known_for_department;
+    return "Department : " + result.known_for_department;
   } else {
-    return 'Unknown';
+    return "Unknown";
   }
 };
 
-
 const MediaCard = ({ result, mediaType, customCardClass }) => {
-// console.log(customCardClass);
+  // console.log(customCardClass);
 
   return (
     <>
-      <div className={`flex relative  hover:flex-grow-[1] transition-all duration-1000 border border-slate-600 rounded-md ${customCardClass ? customCardClass : 'md:h-[300px] h-[300px] max-w-[400px]'} overflow-hidden`} >
+      <div
+        className={`flex relative  hover:flex-grow-[1] hover:transition-all duration-1000 border border-slate-600 rounded-md ${
+          customCardClass
+            ? customCardClass
+            : "md:h-[300px] h-[300px] max-w-[400px]"
+        } overflow-hidden`}
+      >
         {result ? (
           <h4 className=" absolute bg-black text-white right-0 p-2 mt-1 me-1 font-bold py-1 z-10 rounded-md sm:text-sm text-[0.7rem] bg-opacity-30 ">
-            { getMediaType(result, mediaType) }
+            {getMediaType(result, mediaType)}
           </h4>
-        ) : ''}
+        ) : (
+          ""
+        )}
 
         <p className=" absolute z-10 bg-black bg-opacity-30 text-white left-0 p-2 mt-1 ms-1 font-bold py-1 rounded ">
           {" "}
@@ -79,9 +84,10 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
         </p>
 
         <Link
-          to={`/${getRightType(result.media_type?.toLowerCase(), mediaType?.toLowerCase())}/${
-            result && result.id
-          }`}
+          to={`/${getRightType(
+            result.media_type?.toLowerCase(),
+            mediaType?.toLowerCase()
+          )}/${result && result.id}`}
           className=" absolute bottom-[0] text-white bg-black bg-opacity-40 font-bold z-30 text-center text-ellipsis text-nowrap text-[.8rem] sm:text-[1em] overflow-hidden px-2 pt-2 pb-3 rounded-b-[7px] hover:bg-blue-500 w-full underline hover:no-underline "
         >
           {result.title || result.name}
@@ -118,7 +124,9 @@ const MediaCard = ({ result, mediaType, customCardClass }) => {
             {result.title || result.name}
           </Link>
           <p className="leading-relaxed overflow-hidden h-[60%] text-white">
-            <span className="text-ellipsis">{getResultDescription(result)}</span>
+            <span className="text-ellipsis">
+              {getResultDescription(result)}
+            </span>
           </p>
 
           {/* <p className=" absolute top-0 right-0 me-2">

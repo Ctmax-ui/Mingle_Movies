@@ -1,26 +1,34 @@
-import React from 'react';
+import React from "react";
 
-const CatagoryMapping = ({ cataObject, currentSelected, handleChange , isMultipleSelecter}) => {
-  // console.log(currentSelected);
+const CatagoryMapping = ({
+  cataObject,
+  currentSelected,
+  handleChange,
+  isMultipleSelecter,
+}) => {
 
-  if(!isMultipleSelecter){
-    return (<>
-      {cataObject.map((value, key) => (
-        <label
-          key={value.id}
-          className={` border border-black cursor-pointer ${key === currentSelected ? 'bg-black text-white ' : ''} py-2 px-3 rounded select-none hover:bg-black hover:text-white transition-all duration-300`}
-          onContextMenu={(e) => e.preventDefault()}
-        >
-          {value.name}
-          <input
-            type="checkbox"
-            checked={key === currentSelected}
-            onChange={() => handleChange(key)}
-            className="hidden"
-          />
-        </label>
-      ))}
-  </> )
+  if (!isMultipleSelecter) {
+    return (
+      <>
+        {cataObject.map((value, key) => (
+          <label
+            key={value.id}
+            className={` border border-black cursor-pointer ${
+              key === currentSelected ? "bg-black text-white " : ""
+            } py-2 px-3 rounded select-none hover:bg-black hover:text-white transition-all duration-300`}
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            {value.name}
+            <input
+              type="checkbox"
+              checked={key === currentSelected}
+              onChange={() => handleChange(key)}
+              className="hidden"
+            />
+          </label>
+        ))}
+      </>
+    );
   }
 
   return (
@@ -28,7 +36,11 @@ const CatagoryMapping = ({ cataObject, currentSelected, handleChange , isMultipl
       {cataObject.map((value, key) => (
         <label
           key={value.id}
-          className={`border border-black cursor-pointer ${currentSelected.includes(key) ? 'bg-black text-white hover:bg-slate-500' : ''} py-2 px-3 rounded select-none hover:bg-black hover:text-white transition-all duration-300`}
+          className={`border border-black cursor-pointer ${
+            currentSelected.includes(key)
+              ? "bg-black text-white hover:bg-slate-500"
+              : ""
+          } py-2 px-3 rounded select-none hover:bg-black hover:text-white transition-all duration-300`}
           onContextMenu={(e) => e.preventDefault()}
         >
           {value.name}

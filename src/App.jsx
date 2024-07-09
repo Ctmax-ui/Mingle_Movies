@@ -10,7 +10,6 @@ import SingleMoviePage from "./components/reusableComponents/singlePage/SingleMo
 import SingleTvShowPage from "./components/reusableComponents/singlePage/SingleTvShowPage";
 import SinglePersonShowPage from "./components/reusableComponents/singlePage/SinglePersonPage"
 import Test from "./components/reusableComponents/test/Test";
-import { useEffect, useState } from "react";
 import Actors from "./components/main/actors/Actors";
 
 function App() {
