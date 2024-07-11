@@ -13,13 +13,9 @@ import Test from "./components/reusableComponents/test/Test";
 import Actors from "./components/main/actors/Actors";
 
 function App() {
-
-
-
   return (
     <>
       <Header />
-
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="movies" element={<Movies />} />
@@ -28,7 +24,7 @@ function App() {
         <Route path="tvshow/:tvshowId" element={<SingleTvShowPage />} />
         <Route path="actors" element={<Actors />} />
         <Route path="person/:personId" element={<SinglePersonShowPage />} />
-        <Route path="test" element={<Test />} />
+        {/* <Route path="test" element={<Test />} /> */}
 
         <Route path="query">
           <Route index element={<QueryPage />} />
