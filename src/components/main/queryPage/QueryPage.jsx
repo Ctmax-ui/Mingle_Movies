@@ -1,32 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IoMdRefresh } from "react-icons/io";
 import SearchForm from "../../reusableComponents/searchForm/SearchForm";
 import MediaCard from "../../reusableComponents/mediaCard/MediaCard";
 import useGetRightSearchUrl from "../../../hooks/useGetRightSearchUrl";
 import { useLocation } from "react-router-dom";
+import { FaArrowLeft, FaArrowRight  } from "react-icons/fa";
 
 const QueryPage = () => {
-
-  // sessionStorage.setItem('prevPage', window.location.href)
   
   const [queryData, setQueryData] = useState(() => {
     const savedQuery = sessionStorage.getItem("query");
     return savedQuery ? savedQuery: null;
   });
-
-  const handleFormSubmit = (data) => {
-    setQueryData(data);
-  };
-
-  // the function return result
-  const { fetchedData, resultPage, setResultPage, queryUrl } = useGetRightSearchUrl(queryData);
-
-  // if there is any input on form it will run
-  useEffect(() => {
-    if (queryData?.mediaRef) {
-      sessionStorage.setItem("query", JSON.stringify(queryData.mediaRef));
-    }
-  }, [queryData]);
 
   const nextClickHandle = () => {
     setResultPage(resultPage + 1);
@@ -35,6 +20,30 @@ const QueryPage = () => {
     setResultPage(resultPage - 1);
   };
 
+  // for making screen appare on top if i click next or prev page or return to the page
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, nextClickHandle, prevClickHandle]);
+
+
+  const handleFormSubmit = (data) => {
+    setQueryData(data);
+  };
+
+
+  const { fetchedData, resultPage, setResultPage, queryUrl } = useGetRightSearchUrl(queryData);
+  // the function return result
+
+
+  // if there is any input on form it will run
+  useEffect(() => {
+    if (queryData?.mediaRef) {
+      sessionStorage.setItem("query", JSON.stringify(queryData.mediaRef));
+    }
+  }, [queryData]);
+
+
   // if clicked on the next or prev page btn it will run and update the session page number
   useEffect(() => {
     sessionStorage.setItem("page", resultPage);
@@ -42,11 +51,13 @@ const QueryPage = () => {
 
   // console.log(fetchedData);
 
-  // for making screen appare on top if i click next or prev page
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname, nextClickHandle, prevClickHandle]);
+  // document.querySelectorAll('a').forEach((link) => {
+  //   link.onclick = (event) => {
+  //     console.log(event);
+  //     sessionStorage.setItem('currentPostion', window.scrollY)
+  //   };
+  // });
+  
 
   return (
     <>
@@ -75,7 +86,7 @@ const QueryPage = () => {
         </div>
         {/* )} */}
 
-        <div className="my-5 w-full mx-auto flex flex-wrap gap-3 justify-center ">
+        <div className="my-5 w-full mx-auto flex flex-wrap gap-3 justify-center">
           {queryData?.mediaRef?.trim() == "" ? (
             <h3 className=" h-[50vh] text-3xl flex justify-center items-center">
               Search something
@@ -104,18 +115,18 @@ const QueryPage = () => {
           {resultPage > 1 && (
             <button
               onClick={prevClickHandle}
-              className="border px-4 py-2 hover:bg-black hover:text-white transition-all"
+              className="border px-4 py-2 hover:bg-black hover:text-white transition-all flex justify-center items-center gap-2 rounded-md border-slate-600"
             >
-              {"<"} Prev
+              <FaArrowLeft /> Prev
             </button>
           )}
 
           {fetchedData?.total_pages > resultPage && (
             <button
               onClick={nextClickHandle}
-              className="border px-4 py-2 hover:bg-black hover:text-white transition-all"
+              className="border px-4 py-2 hover:bg-black hover:text-white transition-all flex justify-center items-center gap-2 rounded-md border-slate-600"
             >
-              Next {">"}
+              Next <FaArrowRight />
             </button>
           )}
         </div>

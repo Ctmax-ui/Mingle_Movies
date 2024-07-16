@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import useMediaFetcher from "../../../hooks/useMediaFetcher";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import useGetGenre from "../../../hooks/useGetGenre";
 import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
 import MediaCasts from "../mediaCasts/MediaCasts";
 import Breadcumb from "../breadcumb/Breadcumb";
+import { FaArrowLeft } from "react-icons/fa";
 
 const SingleTvShowPage = () => {
 
   
   const { tvshowId } = useParams();
+
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const { pathname } = useLocation();
 
@@ -23,7 +29,7 @@ const SingleTvShowPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, handleGoBack]);
 
   const genreMap = useGetGenre();
 
@@ -45,11 +51,11 @@ const SingleTvShowPage = () => {
     <>
       <section className="text-gray-600 body-font mb-10">
         <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
-          <Link
-            to={sessionStorage.getItem("prevPage")}
-            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md"
+        <Link
+            onClick={handleGoBack} 
+            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md flex justify-center items-center gap-3"
           >
-            Go Back
+           <FaArrowLeft /> Go Back
           </Link>
           <Breadcumb
             linkTo={"/tvshow"}

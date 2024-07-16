@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useMediaFetcher from "../../../hooks/useMediaFetcher";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import useGetGenre from "../../../hooks/useGetGenre";
 import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
@@ -8,19 +8,22 @@ import MediaCardSlider from "../slider/MediaCardSlider";
 import MediaCasts from "../mediaCasts/MediaCasts";
 import { FaArrowRight } from "react-icons/fa";
 import Breadcumb from "../breadcumb/Breadcumb";
+import { FaArrowLeft } from "react-icons/fa";
 
 const SingleMoviePage = () => {
-
-  
   const { movieId } = useParams();
 
-  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
+  const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, handleGoBack]);
 
-  const genreMap = useGetGenre();
+  // const genreMap = useGetGenre();
 
   const { fetchedData: showRightData, isLoading: loading } = useMediaFetcher(
     `${import.meta.env.VITE_URL}movie/${movieId}?language=en-US&page=1`
@@ -39,14 +42,21 @@ const SingleMoviePage = () => {
   return (
     <>
       <section className="text-gray-600 body-font mb-10 ">
-      <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
-          <Link
-            to={sessionStorage.getItem("prevPage")}
-            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md"
+        <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
+        <Link
+            onClick={handleGoBack} 
+            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md flex justify-center items-center gap-3 text-nowrap"
           >
-            Go Back
+           <FaArrowLeft /> Go Back
           </Link>
-          <Breadcumb linkTo={'/movies'} mediaType={'Movie'} mediaName={showRightData && (showRightData.title || showRightData.name)} />
+
+          <Breadcumb
+            linkTo={"/movies"}
+            mediaType={"Movie"}
+            mediaName={
+              showRightData && (showRightData.title || showRightData.name)
+            }
+          />
         </div>
 
         <div className="px-3 xl:px-32 h-auto">

@@ -1,20 +1,27 @@
 import React, { useEffect } from "react";
 import useMediaFetcher from "../../../hooks/useMediaFetcher";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import useGetGenre from "../../../hooks/useGetGenre";
 import ImageWithLoading from "../loadingImageScreen/ImageWithLoading";
 import MediaTrailer from "../mediaTrailers/MediaTrailer";
 import MediaCardSlider from "../slider/MediaCardSlider";
+import Breadcumb from "../breadcumb/Breadcumb";
+import { FaArrowLeft } from "react-icons/fa";
 
 const SinglePersonPage = () => {
   
   const { personId } = useParams();
 
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, handleGoBack]);
 
   const genreMap = useGetGenre();
 
@@ -34,6 +41,24 @@ const SinglePersonPage = () => {
   return (
     <>
       <section className="text-gray-600 body-font mb-10">
+
+      <div className="flex w-11/12 mx-auto mt-5 px-28 justify-between">
+          <Link
+            onClick={handleGoBack} 
+            className="border rounded border-slate-800 text-slate-800 px-3 py-1 hover:text-white hover:border-blue-600 hover:bg-blue-600 text-md flex justify-center items-center gap-3"
+          >
+           <FaArrowLeft /> Go Back
+          </Link>
+
+          <Breadcumb
+            linkTo={"/actors"}
+            mediaType={"Actors"}
+            mediaName={
+              showRightData && (showRightData.title || showRightData.name)
+            }
+          />
+        </div>
+
         <div className="px-3 xl:px-32 h-auto">
           <div className="container md:max-w-[95%] mx-auto flex px-5 py-5 md:flex-row flex-col gap-5 items-center my-5 h-auto border border-black rounded-md">
             <div
