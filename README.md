@@ -2,3 +2,6 @@
 
 
 ## made using react , tailwind css, and tmdb api.
+
+### How to run it
+
