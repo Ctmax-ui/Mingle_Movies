@@ -1,6 +1,6 @@
 html {
     -ms-overflow-style: none;
-    scrollbar-width: none;
+    scrollbar-width: thin;
     scroll-behavior: smooth;
 }
 body{
